@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Daftar Buku</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <div class="d-flex">
+        <div class="sidebar bg-dark text-white p-3">
+            <a href="index.html" class="text-white">
+                <h2>Manajemen Buku</h2>
+            </a>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a class="nav-link text-white" href="pengarang.html">Pengarang</a></li>
+                <li class="nav-item mb-2"><a class="nav-link text-white" href="buku.html">Buku</a></li>
+            </ul>
+        </div>
+        <div class="main-content p-4 w-100">
+            <div id="alert-container"></div>
+            <h1>Daftar Buku</h1>
+            <form id="buku-form" class="mb-4">
+                <input type="hidden" id="id_buku">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="judul_buku" placeholder="Judul Buku" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="id_pengarang_buku" placeholder="ID Pengarang" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="penerbit" placeholder="Penerbit">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="tahun_terbit" placeholder="Tahun Terbit" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="kategori_buku" placeholder="Kategori Buku" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="no_isbn" placeholder="No ISBN">
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan Buku</button>
+            </form>
+            <h2>List Buku</h2>
+            <div class="table-container">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID Buku</th>
+                            <th>Judul Buku</th>
+                            <th>ID Pengarang</th>
+                            <th>Penerbit</th>
+                            <th>Tahun Terbit</th>
+                            <th>Kategori Buku</th>
+                            <th>No ISBN</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="buku-list"></tbody>
+                </table>
+            </div>
+            <script src="js/main.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    fetchBuku();
+                    document.getElementById('buku-form').addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        const id = document.getElementById('id_buku').value;
+                        if (id) {
+                            updateBuku(id);
+                        } else {
+                            tambahBuku();
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus buku ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger" id="deleteButton">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
